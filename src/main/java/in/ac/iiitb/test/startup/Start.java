@@ -49,7 +49,7 @@ public class Start {
 		Student s = sr.findByUsernameAndPassword(uname, pass);
 
 		if (s.getUsername().equalsIgnoreCase(uname)) {
-			System.out.println("Login Scucessfull");
+			System.out.println("Login Successful");
 
 			List<CourseRegistration> courses = crr.findByStudent(s);
 			ArrayList<Subject> subs = new ArrayList<Subject>();
@@ -68,15 +68,16 @@ public class Start {
 					tests.add(t);
 				}
 			}
+			System.out.println("Tests:");
 			int i=1;
 			for (Test tes : tests) {
 				System.out.println(i++ + ". " + tes.getName());
 			}
-			System.out.println("Enter your Choice: ");
+			System.out.print("Enter your Choice: ");
 			i = Integer.parseInt(br.readLine());
 
 		} else {
-			System.out.println("Invalid Login Details.");
+			System.out.println("Login Unsuccessful");
 		}
 	}
 
@@ -87,9 +88,9 @@ public class Start {
 		Test t = new Test();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		System.out.println("---Create a New Test---");
+		System.out.println("---Create a New Test---\n");
 
-		System.out.println("Enter Test Name:");
+		System.out.print("Enter Test Name: ");
 		String name;
 		name = br.readLine();
 		t.setName(name);
@@ -97,15 +98,15 @@ public class Start {
 		System.out.println("Enter Date of Exam: ");
 		int date, month, year, hr, minute;
 
-		System.out.println("Enter Date");
+		System.out.print("Enter Date: ");
 		date = Integer.parseInt(br.readLine());
-		System.out.println("Enter Month Number");
+		System.out.print("Enter Month Number: ");
 		month = Integer.parseInt(br.readLine());
-		System.out.println("Enter Year");
+		System.out.print("Enter Year: ");
 		year = Integer.parseInt(br.readLine());
-		System.out.println("Enter Hour in 24hr format");
+		System.out.print("Enter Hour in 24hr format: ");
 		hr = Integer.parseInt(br.readLine());
-		System.out.println("Enter Minute");
+		System.out.print("Enter Minute: ");
 		minute = Integer.parseInt(br.readLine());
 
 		String dateString = year + "-" + month + "-" + date + " " + hr + ":" +
@@ -117,18 +118,23 @@ public class Start {
 		Date d = formatter.parse(dateString);
 		t.setStartDate(d);
 
-		System.out.println("Enter Duration of the Exam: ");
+		System.out.print("Enter Duration of the Exam: ");
 		int duration;
 		duration = Integer.parseInt(br.readLine());
 		t.setDuration(duration);
-
-		System.out.println("Enter Subject Code");
-		String cc;
-		cc = br.readLine();
-
-		Subject sub = subr.findBySubjectCode(cc);
-		t.setCourseCode(sub);
-
+		boolean flag = true;
+		while (flag) {
+			System.out.print("Enter Subject Code: ");
+			String cc;
+			cc = br.readLine();
+			Subject sub = subr.findBySubjectCode(cc);
+			if (sub != null) {
+				t.setCourseCode(sub);
+				flag = false;
+			} else {
+				System.out.println("Incorrect Code, no Subject with that Subject Code Exists!!");
+			}
+		}
 		tr.save(t);
 	}
 
@@ -138,62 +144,71 @@ public class Start {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		Student s = new Student();
-		s.setStudentId(1);
-		s.setName("Aman");
-		s.setEmail("aman.gupta@iiitb.ac.in");
-		s.setUsername("amang");
-		s.setPassword("password");
-		sr.save(s);
+		try{
+			Student s = new Student();
+			s.setStudentId(1);
+			s.setName("Aman");
+			s.setEmail("aman.gupta@iiitb.ac.in");
+			s.setUsername("amang");
+			s.setPassword("password");
+			sr.save(s);
 
-		Subject sub = new Subject();
-		sub.setSubjectId(1);
-		sub.setSubjectName("Software Architecture");
-		sub.setSubjectCode("CS801");
-		subr.save(sub);
+			Subject sub = new Subject();
+			sub.setSubjectId(1);
+			sub.setSubjectName("Software Architecture");
+			sub.setSubjectCode("CS801");
+			subr.save(sub);
 
-		CourseRegistration cr = new CourseRegistration();
-		cr.setId(1);
-		cr.setStudent(s);
-		cr.setCourse(sub);
-		crr.save(cr);
+			CourseRegistration cr = new CourseRegistration();
+			cr.setId(1);
+			cr.setStudent(s);
+			cr.setCourse(sub);
+			crr.save(cr);
 
-		Date d = new Date();
-		Test t = new Test();
-		t.setName("Aman Test");
-		t.setDuration(180);
-		t.setCourseCode(sub);
-		t.setStartDate(d);
-		t.setTestId(1);
-		tr.save(t);
+			Date d = new Date();
+			Test t = new Test();
+			t.setName("Aman Test");
+			t.setDuration(180);
+			t.setCourseCode(sub);
+			t.setStartDate(d);
+			t.setTestId(1);
+			tr.save(t);
+		} catch(Exception e) {
+			System.out.println("Already Existing data");
+		}
 
-		// System.out.println("1. Student Login\n2. Teacher Login");
-		// choice = Integer.parseInt(br.readLine());
-		// switch (choice) {
-		// 	case 1:
-		// 		studentLogin();
-		// 		break;
-		// 	case 2:
-		// 		teach();
-		// 		break;
-		// 	default:
-		// 		System.out.println("Invalid Option");
-		// 		break;
-		// }
-		// System.out.println("Done");
-		System.out.println("\n\n---Welcome to OAES---\n\n");
+		System.out.print("\033[H\033[2J");  
+    	System.out.flush();
+
+		System.out.println("---Welcome to OAES---\n\n");
 		System.out.println("1. Student Login\n2. Teacher Login");
 		System.out.println("Enter your Choice");
-		System.out.println("2");
-		System.out.println("\n---Create Test---\n");
-		System.out.println("Enter Test Name: ESD Exam");
-		System.out.println("Enter Date of Exam: ");
-		System.out.println("Enter Date: 20");
-		System.out.println("Enter Month Number: 11");
-		System.out.println("Enter Year: 2022");
-		System.out.println("Enter Hour in 24hr format: 13");
-		System.out.println("Enter Minute: 30");
-		System.out.println("Date and Time of the Exam: 2022-11-20 13:30:00");
-		System.out.println("Test Creation Failed. Exam Timings Conflict with another Exam.");
+		choice = Integer.parseInt(br.readLine());
+		switch (choice) {
+			case 1:
+				studentLogin();
+				break;
+			case 2:
+				teach();
+				break;
+			default:
+				System.out.println("Invalid Option");
+				break;
+		}
+		System.out.println("Done");
+		// System.out.println("\n\n---Welcome to OAES---\n\n");
+		// System.out.println("1. Student Login\n2. Teacher Login");
+		// System.out.println("Enter your Choice");
+		// System.out.println("2");
+		// System.out.println("\n---Create Test---\n");
+		// System.out.println("Enter Test Name: ESD Exam");
+		// System.out.println("Enter Date of Exam: ");
+		// System.out.println("Enter Date: 20");
+		// System.out.println("Enter Month Number: 11");
+		// System.out.println("Enter Year: 2022");
+		// System.out.println("Enter Hour in 24hr format: 13");
+		// System.out.println("Enter Minute: 30");
+		// System.out.println("Date and Time of the Exam: 2022-11-20 13:30:00");
+		// System.out.println("Test Creation Failed. Exam Timings Conflict with another Exam.");
 	}
 }
