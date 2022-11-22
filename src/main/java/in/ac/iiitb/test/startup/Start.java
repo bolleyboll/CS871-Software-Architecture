@@ -61,7 +61,6 @@ public class Start {
 			}
 
 			for (Subject su : subs) {
-				// tests.add(tr.findByCourseCode(s).get(arg0));
 				ArrayList<Test> temporary;
 				temporary = tr.findByCourseCode(su);
 
@@ -75,7 +74,22 @@ public class Start {
 				System.out.println(i++ + ". " + tes.getName());
 			}
 			System.out.print("Enter your Choice: ");
-			i = Integer.parseInt(br.readLine());
+			int testNo = Integer.parseInt(br.readLine());
+
+			if (testNo < i) {
+				Instant startDB = tests.get(testNo-1).getStartDate().toInstant();
+				Instant endDB = startDB.plusSeconds(tests.get(testNo-1).getDuration()*60);
+
+				Instant now = Instant.now();
+				if (now.isAfter(startDB) && now.isBefore(endDB)) {
+					System.out.println("\nYou've entered the test!");
+				} else {
+					System.out.println("Unable to enter exam. Exam has already Ended.");
+				}
+
+			} else {
+				System.out.println("Incorrect Choice.");
+			}
 
 		} else {
 			System.out.println("Login Unsuccessful");
@@ -155,7 +169,7 @@ public class Start {
 	}
 
 	@EventListener(ContextRefreshedEvent.class)
-	void te() throws Exception {
+	void start() throws Exception {
 		int choice;
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -184,7 +198,7 @@ public class Start {
 			Date d = new Date();
 			Test t = new Test();
 			t.setName("Aman Test");
-			t.setDuration(180);
+			t.setDuration(5);
 			t.setCourseCode(sub);
 			t.setStartDate(d);
 			t.setTestId(1);
@@ -211,21 +225,5 @@ public class Start {
 				System.out.println("Invalid Option");
 				break;
 		}
-		System.out.println("Done");
-		// System.out.println("\n\n---Welcome to OAES---\n\n");
-		// System.out.println("1. Student Login\n2. Teacher Login");
-		// System.out.println("Enter your Choice");
-		// System.out.println("2");
-		// System.out.println("\n---Create Test---\n");
-		// System.out.println("Enter Test Name: ESD Exam");
-		// System.out.println("Enter Date of Exam: ");
-		// System.out.println("Enter Date: 20");
-		// System.out.println("Enter Month Number: 11");
-		// System.out.println("Enter Year: 2022");
-		// System.out.println("Enter Hour in 24hr format: 13");
-		// System.out.println("Enter Minute: 30");
-		// System.out.println("Date and Time of the Exam: 2022-11-20 13:30:00");
-		// System.out.println("Test Creation Failed. Exam Timings Conflict with another
-		// Exam.");
 	}
 }
