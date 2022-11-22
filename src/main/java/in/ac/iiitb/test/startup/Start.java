@@ -3,6 +3,7 @@ package in.ac.iiitb.test.startup;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +70,7 @@ public class Start {
 				}
 			}
 			System.out.println("Tests:");
-			int i=1;
+			int i = 1;
 			for (Test tes : tests) {
 				System.out.println(i++ + ". " + tes.getName());
 			}
@@ -83,8 +84,6 @@ public class Start {
 
 	void teach() throws Exception {
 
-		int choice;
-		
 		Test t = new Test();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -109,13 +108,12 @@ public class Start {
 		System.out.print("Enter Minute: ");
 		minute = Integer.parseInt(br.readLine());
 
-		String dateString = year + "-" + month + "-" + date + " " + hr + ":" +
+		String dateString = year + "/" + month + "/" + date + " " + hr + ":" +
 				minute;
-		System.out.println("Date and Time of the Exam: " +
-				dateString);
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		Date d = formatter.parse(dateString);
+		System.out.println("Date and Time of the Exam: " + d);
 		t.setStartDate(d);
 
 		System.out.print("Enter Duration of the Exam: ");
@@ -135,7 +133,25 @@ public class Start {
 				System.out.println("Incorrect Code, no Subject with that Subject Code Exists!!");
 			}
 		}
-		tr.save(t);
+
+		List<Test> tests = tr.findAll();
+		for (Test test : tests) {
+			Instant startTime = t.getStartDate().toInstant();
+			Instant endTime = startTime.plusSeconds(t.getDuration() * 60);
+
+			Instant startExamTime = test.getStartDate().toInstant();
+			Instant endExamTime = startExamTime.plusSeconds(t.getDuration() * 60);
+
+			if ((startTime.isBefore(startExamTime) && endTime.isBefore(startExamTime))
+					|| (startTime.isAfter(endExamTime) && endTime.isAfter(endExamTime))) {
+				tr.save(t);
+			} else {
+				System.out.println("Test Creation Failed. Exam Timings Conflict with another Exam.");
+				System.out.println(test);
+				break;
+			}
+		}
+
 	}
 
 	@EventListener(ContextRefreshedEvent.class)
@@ -144,7 +160,7 @@ public class Start {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		try{
+		try {
 			Student s = new Student();
 			s.setStudentId(1);
 			s.setName("Aman");
@@ -173,12 +189,12 @@ public class Start {
 			t.setStartDate(d);
 			t.setTestId(1);
 			tr.save(t);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Already Existing data");
 		}
 
-		System.out.print("\033[H\033[2J");  
-    	System.out.flush();
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 
 		System.out.println("---Welcome to OAES---\n\n");
 		System.out.println("1. Student Login\n2. Teacher Login");
@@ -209,6 +225,7 @@ public class Start {
 		// System.out.println("Enter Hour in 24hr format: 13");
 		// System.out.println("Enter Minute: 30");
 		// System.out.println("Date and Time of the Exam: 2022-11-20 13:30:00");
-		// System.out.println("Test Creation Failed. Exam Timings Conflict with another Exam.");
+		// System.out.println("Test Creation Failed. Exam Timings Conflict with another
+		// Exam.");
 	}
 }
