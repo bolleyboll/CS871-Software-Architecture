@@ -3,6 +3,7 @@ package in.ac.iiitb.auth.controller;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import in.ac.iiitb.auth.models.Student;
 import in.ac.iiitb.auth.models.Teacher;
 import in.ac.iiitb.auth.repositories.StudentRepository;
 import in.ac.iiitb.auth.repositories.TeacherRepository;
+import lombok.Data;
 
 @RestController
 @CrossOrigin
@@ -27,23 +29,24 @@ public class AppController {
 	@Autowired
 	TeacherRepository tr;
 
-	@PostMapping("slogin")
-	public Response StudentLogin(@RequestBody StudentDTO user) {
+	@PostMapping("/student/login")
+	public ResponseEntity<String> StudentLogin(@RequestBody StudentDTO user) {
+
 		Student s = sr.findByUsername(user.getUsername());
 
 		if (s.getPassword().equals(user.getPassword())) {
-			return Response.ok("Login Success").build();
+			return ResponseEntity.ok("Login Success");
 		}
-		return Response.ok("Invalid Credentials").build();
+		return ResponseEntity.ok("Invalid Credentials");
 	}
 
-	@PostMapping("tlogin")
-	public Response teacherLogin(@RequestBody @Autowired TeacherDTO user) {
+	@PostMapping("/teacher/login")
+	public ResponseEntity<String> teacherLogin(@RequestBody TeacherDTO user) {
 		Teacher s = tr.findByUsername(user.getUsername());
 
 		if (s.getPassword().equals(user.getPassword())) {
-			return Response.ok("Login Success").build();
+			return ResponseEntity.ok("Login Success");
 		}
-		return Response.ok("Invalid Credentials").build();
+		return ResponseEntity.ok("Invalid Credentials");
 	}
 }
