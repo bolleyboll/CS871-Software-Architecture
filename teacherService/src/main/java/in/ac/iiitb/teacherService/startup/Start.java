@@ -5,9 +5,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import in.ac.iiitb.teacherService.models.Student;
 import in.ac.iiitb.teacherService.models.Teacher;
-import in.ac.iiitb.teacherService.repositories.StudentRepository;
 import in.ac.iiitb.teacherService.repositories.TeacherRepository;
 
 @Component

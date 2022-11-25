@@ -1,4 +1,4 @@
-package in.ac.iiitb.auth;
+package in.ac.iiitb.studentService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -18,10 +18,14 @@ spring:
             enabled: true
         gateway:
             routes: 
-            - id: auth-service-id
-              uri: lb://auth-service
+            - id: student-service-id
+              uri: lb://student-service
               predicates:
                 - Path=/student/**
+            - id: teacher-service-id
+              uri: lb://teacher-service
+              predicates:
+                - Path=/teacher/**
             discovery:
               locator:
                 lower-case-service-id: true

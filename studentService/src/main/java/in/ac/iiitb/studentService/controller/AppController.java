@@ -1,7 +1,5 @@
 package in.ac.iiitb.studentService.controller;
 
-import javax.ws.rs.core.Response;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import in.ac.iiitb.studentService.dto.StudentDTO;
 import in.ac.iiitb.studentService.models.Student;
 import in.ac.iiitb.studentService.repositories.StudentRepository;
-import lombok.Data;
 
 @RestController
 @CrossOrigin
