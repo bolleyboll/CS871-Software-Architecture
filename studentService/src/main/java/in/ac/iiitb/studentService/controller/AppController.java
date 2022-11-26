@@ -3,6 +3,7 @@ package in.ac.iiitb.studentService.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.ac.iiitb.studentService.dto.StudentDTO;
 import in.ac.iiitb.studentService.models.Student;
-import in.ac.iiitb.studentService.repositories.StudentRepository;
+import in.ac.iiitb.studentService.service.StudentService;
 
 @RestController
 @CrossOrigin
@@ -18,12 +19,29 @@ import in.ac.iiitb.studentService.repositories.StudentRepository;
 public class AppController {
 
 	@Autowired
-	StudentRepository sr;
+	StudentService ss;
 
 	@PostMapping("login")
-	public ResponseEntity<String> StudentLogin(@RequestBody StudentDTO user) {
+	public ResponseEntity<String> studentLogin(@RequestBody StudentDTO user) {
 
-		Student s = sr.findByUsername(user.getUsername());
+		Student s = ss.findByUsername(user.getUsername());
+
+		if (s.getPassword().equals(user.getPassword())) {
+			Boolean res = ss.setSessionKey("student", s);
+			if (res) {
+				return ResponseEntity.ok("Login Success");
+			} else {
+				return ResponseEntity.ok("Login Failed");
+			}
+		}
+		return ResponseEntity.ok("Invalid Credentials");
+	}
+
+	@GetMapping("test")
+	public ResponseEntity<String> getTest(@RequestBody StudentDTO user) {
+
+		String uname = ss.getSessionKey("student");
+		Student s = ss.findByUsername(uname);
 
 		if (s.getPassword().equals(user.getPassword())) {
 			return ResponseEntity.ok("Login Success");

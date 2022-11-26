@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.ac.iiitb.teacherService.dto.TeacherDTO;
 import in.ac.iiitb.teacherService.models.Teacher;
-import in.ac.iiitb.teacherService.repositories.TeacherRepository;
+import in.ac.iiitb.teacherService.service.TeacherService;
 
 @RestController
 @CrossOrigin
@@ -18,14 +18,20 @@ import in.ac.iiitb.teacherService.repositories.TeacherRepository;
 public class AppController {
 
 	@Autowired
-	TeacherRepository tr;
+	TeacherService ts;
 
 	@PostMapping("login")
-	public ResponseEntity<String> teacherLogin(@RequestBody TeacherDTO user) {
-		Teacher s = tr.findByUsername(user.getUsername());
+	public ResponseEntity<String> studentLogin(@RequestBody TeacherDTO user) {
+
+		Teacher s = ts.findByUsername(user.getUsername());
 
 		if (s.getPassword().equals(user.getPassword())) {
-			return ResponseEntity.ok("Login Success");
+			Boolean res = ts.setSessionKey("student", s);
+			if (res) {
+				return ResponseEntity.ok("Login Success");
+			} else {
+				return ResponseEntity.ok("Login Failed");
+			}
 		}
 		return ResponseEntity.ok("Invalid Credentials");
 	}
