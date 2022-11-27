@@ -9,7 +9,7 @@ import in.ac.iiitb.courseService.service.CourseService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("teacher")
+@RequestMapping("course")
 public class AppController {
 
 	@Autowired

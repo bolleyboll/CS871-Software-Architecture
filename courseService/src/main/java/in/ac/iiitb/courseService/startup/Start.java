@@ -1,5 +1,7 @@
 package in.ac.iiitb.courseService.startup;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -7,8 +9,10 @@ import org.springframework.stereotype.Component;
 
 import in.ac.iiitb.courseService.models.Course;
 import in.ac.iiitb.courseService.models.CourseRegistration;
+import in.ac.iiitb.courseService.models.Exam;
 import in.ac.iiitb.courseService.repositories.CourseRegistrationRepository;
 import in.ac.iiitb.courseService.repositories.CourseRepository;
+import in.ac.iiitb.courseService.repositories.ExamRepository;
 
 @Component
 public class Start {
@@ -18,6 +22,9 @@ public class Start {
 
 	@Autowired
 	CourseRegistrationRepository crr;
+
+	@Autowired
+	ExamRepository er;
 
 	@EventListener(ContextRefreshedEvent.class)
 	void start() throws Exception {
@@ -57,7 +64,30 @@ public class Start {
 			creg4.setCourse(t);
 			creg4.setStudent("nitinv");
 			crr.save(creg4);
-			
+
+			Exam e = new Exam();
+			e.setExamId(1);
+			e.setName("Architecture Viva");
+			e.setDuration(30);
+			e.setCourseCode(t);
+			e.setStartDate(new Date());
+			er.save(e);
+
+			Exam e1 = new Exam();
+			e1.setExamId(2);
+			e1.setName("Architecture End Term");
+			e1.setDuration(180);
+			e1.setCourseCode(t);
+			e1.setStartDate(new Date());
+			er.save(e1);
+
+			Exam e2 = new Exam();
+			e2.setExamId(3);
+			e2.setName("FSL End Term");
+			e2.setDuration(180);
+			e2.setCourseCode(t1);
+			e2.setStartDate(new Date());
+			er.save(e2);
 
 		} catch (Exception e) {
 			System.out.println("Already Existing data");
