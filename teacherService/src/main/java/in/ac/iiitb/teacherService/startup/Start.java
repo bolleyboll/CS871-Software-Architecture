@@ -23,7 +23,14 @@ public class Start {
 			t.setEmail("rc@iiitb.ac.in");
 			t.setUsername("rc");
 			t.setPassword("password");
-			tr.save(t);
+
+			Teacher t1 = new Teacher();
+			t1.setTeacherId(2);
+			t1.setName("V Ramasubramanian");
+			t1.setEmail("v.ramasubramanian@iiitb.ac.in");
+			t1.setUsername("ram");
+			t1.setPassword("password");
+			tr.save(t1);
 		} catch (Exception e) {
 			System.out.println("Already Existing data");
 		}

@@ -22,7 +22,6 @@ public class CourseRegistration {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
-    @ManyToOne
     @JoinColumn(name = "username")
     String student;
 
