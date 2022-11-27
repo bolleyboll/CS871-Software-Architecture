@@ -1,0 +1,55 @@
+<div class="container">
+  <h2 class="text-center my-5">Sign In</h2>
+  <form (ngSubmit)="loginSubmit(loginForm)" #loginForm="ngForm">
+    <div class="form-group">
+      <label>Email address</label>
+      <input
+        type="text"
+        class="form-control"
+        name="email"
+        #email="ngModel"
+        [(ngModel)]="login.email"
+        placeholder="Enter Email"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="email.invalid && email.dirty"
+        >Email can't be empty</small
+      >
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="passsword"
+        #password="ngModel"
+        [(ngModel)]="login.password"
+        placeholder="Enter Password"
+        required
+      />
+      <small
+        class="form-text text-warning"
+        *ngIf="password.invalid && password.dirty"
+        >Password can't be empty</small
+      >
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="loginForm.pristine || loginForm.invalid"
+    >
+      Login
+    </button>
+  </form>
+
+  <div class="alert alert-danger my-3" role="alert" *ngIf="errorFlag">
+    <div class="d-flex justify-content-start align-items-center">
+      <i class="material-icons md-28 mr-3" style="font-size: 28px">
+        highlight_off
+      </i>
+      <h4 class="alert-heading mb-0">Sign in unsuccessfull!</h4>
+    </div>
+    <hr />
+    <p class="mb-0">Please enter valid credintials.</p>
+  </div>
+</div>

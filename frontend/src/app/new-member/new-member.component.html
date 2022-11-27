@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">
+      Adding a new Member to {{ this.auth.curGrp.name }}
+    </h1>
+    <hr class="my-4" />
+    <form
+      (ngSubmit)="addUser(addUserForm)"
+      #addUserForm="ngForm"
+      *ngIf="!successFlag"
+    >
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Select the user to add</label>
+        <select
+          class="form-control"
+          id="exampleFormControlSelect1"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="username"
+        >
+          <option value="{{ user.username }}" *ngFor="let user of this.users">
+            {{ user.username }}
+          </option>
+        </select>
+        <small
+          class="form-text text-warning"
+          *ngIf="name.invalid && name.dirty"
+        >
+          Username can't be empty
+        </small>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary mt-3"
+        [disabled]="addUserForm.pristine || addUserForm.invalid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

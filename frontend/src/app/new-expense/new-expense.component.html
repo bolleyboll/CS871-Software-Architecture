@@ -1,0 +1,67 @@
+<div class="container my-5">
+  <form
+    (ngSubmit)="newExpense(newExpForm)"
+    #newExpForm="ngForm"
+    *ngIf="!successFlag"
+  >
+    <div class="form-group">
+      <label for="exampleFormControlSelect1"
+        >For which group was the expense made</label
+      >
+      <select
+        class="form-control"
+        id="exampleFormControlSelect1"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="expense.forGroup"
+      >
+        <option
+          value="{{ group.groupId }}"
+          *ngFor="let group of this.auth.groups"
+        >
+          {{ group.name }}
+        </option>
+      </select>
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Group Name can't be empty
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Expense Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="expense.name"
+        placeholder="Name your expense"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Expense name can't be empty
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Amount</label>
+      <input
+        type="number"
+        class="form-control"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="expense.amount"
+        placeholder="Enter amount"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Expense Amount can't be empty
+      </small>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="newExpForm.pristine || newExpForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+</div>

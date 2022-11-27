@@ -1,0 +1,76 @@
+<div class="container">
+  <h2 class="text-center my-5">New Group Creation Form</h2>
+  <form
+    (ngSubmit)="newGroup(newGrpForm)"
+    #newGrpForm="ngForm"
+    *ngIf="!successFlag"
+  >
+    <div class="form-group">
+      <label>Group Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="group.name"
+        placeholder="Enter your name"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Name can't be empty
+      </small>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="newGrpForm.pristine || newGrpForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+
+  <div
+    class="card text-center mt-4"
+    style="width: 320px; margin: auto; position: relative"
+    *ngIf="successFlag"
+  >
+    <div
+      class="align-items-center text-white py-4"
+      style="background-color: #8bc34a"
+    >
+      <i class="material-icons mt-5" style="font-size: 72px">
+        check_circle_outline
+      </i>
+      <h4 class="mb-5">SUCCESS</h4>
+    </div>
+    <div class="card-body py-5">
+      <p class="card-text mt-3">
+        Group successfully created. Please click on the dashboard button to
+        continue
+      </p>
+      <br />
+      <div class="d-flex text-center justify-content-around mb-3">
+        <a
+          routerLink="/dashboard"
+          class="text-white btn rounded-pill"
+          style="background-color: #8bc34a"
+        >
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-danger my-3" role="alert" *ngIf="errorFlag">
+    <div class="d-flex justify-content-start align-items-center">
+      <i class="material-icons md-28 mr-3" style="font-size: 28px">
+        highlight_off
+      </i>
+      <h4 class="alert-heading mb-0">Group Creation unsuccessfull!</h4>
+    </div>
+
+    <hr />
+    <p class="mb-0">Group Already Registered</p>
+  </div>
+</div>

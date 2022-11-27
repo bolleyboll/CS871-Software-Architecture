@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand ml-2" routerLink="/">Expense Sharing</a>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="about">About Us</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-inline my-2 my-lg-0 mr-2">
+    <button
+      class="btn btn-primary"
+      routerLink="login"
+      *ngIf="!this.auth.isLoggedIn"
+    >
+      Login
+    </button>
+    <button
+      class="btn btn-secondary"
+      routerLink="register"
+      *ngIf="!this.auth.isLoggedIn"
+    >
+      Register
+    </button>
+    <div class="dropdown" *ngIf="auth.currentuser">
+      <a class="btn btn-outline-secondary mr-2" routerLink="/dashboard"
+        >My Dashboard</a
+      >
+      
+        <a class="btn btn-outline-secondary" (click)="logout()" routerLink="/">Logout</a>
+    </div>
+  </div>
+</nav>

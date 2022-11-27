@@ -1,0 +1,150 @@
+<div class="container">
+  <h2 class="text-center my-5">New User Registration Form</h2>
+  <form
+    (ngSubmit)="patientSubmit(patRegForm)"
+    #patRegForm="ngForm"
+    *ngIf="!successFlag"
+  >
+    <div class="form-group">
+      <label>Username</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="user.username"
+        placeholder="Enter your username"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Username can't be empty
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="user.name"
+        placeholder="Enter your name"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="name.invalid && name.dirty">
+        Name can't be empty
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        #email="ngModel"
+        [(ngModel)]="user.email"
+        placeholder="Enter your email address"
+        required
+      />
+      <small
+        class="form-text text-warning"
+        *ngIf="email.invalid && email.dirty"
+      >
+        Email can't be empty
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="pass"
+        name="password"
+        #password="ngModel"
+        [(ngModel)]="user.password"
+        placeholder="Password"
+        required
+      />
+      <small
+        class="form-text text-warning"
+        *ngIf="password.invalid && password.dirty"
+      >
+        Password can't be empty
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="cpass"
+        name="cpassword"
+        placeholder="Re-enter your Password"
+        (keyup)="validatePass()"
+        required
+      />
+      <small [class]="errorStyle" id="confPassError">{{ error }}</small>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="patRegForm.pristine || patRegForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+
+  <div
+    class="card text-center mt-4"
+    style="width: 320px; margin: auto; position: relative"
+    *ngIf="successFlag"
+  >
+    <div
+      class="align-items-center text-white py-4"
+      style="background-color: #8bc34a"
+    >
+      <i class="material-icons mt-5" style="font-size: 72px">
+        check_circle_outline
+      </i>
+      <h4 class="mb-5">SUCCESS</h4>
+    </div>
+    <div class="card-body py-5">
+      <p class="card-text mt-3">
+        You have been successfully signed up. Please click on the login button
+        to continue
+      </p>
+      <br />
+      <div class="d-flex text-center justify-content-around mb-3">
+        <a
+          routerLink="/signin"
+          class="text-white btn rounded-pill"
+          style="background-color: #8bc34a"
+        >
+          Login
+        </a>
+        <a
+          routerLink="register/pat"
+          (click)="registerbtn()"
+          class="text-white btn rounded-pill"
+          style="background-color: #8bc34a"
+        >
+          Sign Up
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-danger my-3" role="alert" *ngIf="errorFlag">
+    <div class="d-flex justify-content-start align-items-center">
+      <i class="material-icons md-28 mr-3" style="font-size: 28px">
+        highlight_off
+      </i>
+      <h4 class="alert-heading mb-0">Sign up unsuccessfull!</h4>
+    </div>
+
+    <hr />
+    <p class="mb-0">User Already Registered</p>
+  </div>
+</div>
