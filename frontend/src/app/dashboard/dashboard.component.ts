@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
     if (this.auth.currentuser.name === null) {
       this.auth.exams = [];
     } else {
-      console.log("in here")
-      console.log(this.auth.currentuser.username)
+      console.log("in here");
+      console.log(this.auth.currentuser.username);
       this.auth
         .getTests(this.auth.currentuser.username)
         .subscribe((res: any) => {

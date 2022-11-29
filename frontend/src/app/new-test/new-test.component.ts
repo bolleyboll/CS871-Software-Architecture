@@ -42,16 +42,12 @@ export class NewTestComponent implements OnInit {
     this.errorFlag = false;
     this.successFlag = false;
     this.exam.examId = Math.floor(Math.random() * (999 - 100 + 1) + 100);
-    // this.d = this.exam.course;
-    // console.log(this.exam.course.courseId)
-    // this.temp.courseId = this.d.courseId;
-    // this.temp.courseCode = this.d.courseCode;
-    // this.temp.courseName = this.d.courseName;
-    // this.exam.course = this.temp;
+    
     console.log(this.exam);
 
     this.auth.saveExam(this.exam, this.auth.selCourse).subscribe((res: any) => {
-      if (res === null) {
+      console.log(res.examId)
+      if (res.examId === null) {
         this.errorFlag = true;
       } else {
         this.successFlag = true;

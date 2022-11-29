@@ -1,6 +1,9 @@
 package in.ac.iiitb.courseService.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import in.ac.iiitb.courseService.models.CourseRegistration;
 import in.ac.iiitb.courseService.models.Exam;
 import in.ac.iiitb.courseService.models.ExamResponse;
 import in.ac.iiitb.courseService.repositories.CourseRepository;
+import in.ac.iiitb.courseService.repositories.ExamRepository;
 import in.ac.iiitb.courseService.service.CourseService;
 
 @RestController
@@ -32,6 +36,9 @@ public class AppController {
 
 	@Autowired
 	CourseRepository cr;
+
+	@Autowired
+	ExamRepository er;
 
 	@GetMapping("tests/{student}")
 	public ResponseEntity<ArrayList<Exam>> findStudentsOfCourse(@PathVariable String student) {
@@ -57,16 +64,50 @@ public class AppController {
 
 	@PostMapping("tests/response/save")
 	public ResponseEntity<ExamResponse> saveExamResponse(@RequestBody ExamResponse examResp) {
-		ExamResponse resp = cs.saveTestResponse(examResp);
-		return ResponseEntity.ok(resp);
+		Exam e = examResp.getExam();
+		Instant startTime = e.getStartDate().toInstant();
+		Instant endTime = startTime.plusSeconds(e.getDuration() * 60);
+
+		Instant curr = new Date().toInstant();
+		if (curr.isAfter(startTime) && curr.isBefore(endTime)) {
+			ExamResponse resp = cs.saveTestResponse(examResp);
+			return ResponseEntity.ok(resp);
+		} else {
+			return ResponseEntity.ok(new ExamResponse());
+		}
 	}
 
 	@PostMapping("tests/save/{cid}")
 	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, @PathVariable String cid) {
 		Course c = cr.findByCourseCode(cid);
 		exam.setCourseCode(c);
-		Exam resp = cs.saveExam(exam);
-		return ResponseEntity.ok(resp);
+
+		boolean f = false;
+
+		Instant d = exam.getStartDate().toInstant();
+		d = d.minusSeconds(19800);
+
+		exam.setStartDate(Date.from(d));
+
+		List<Exam> tests = er.findAll();
+		for (Exam test : tests) {
+			Instant startTime = exam.getStartDate().toInstant();
+			Instant endTime = startTime.plusSeconds(exam.getDuration() * 60);
+
+			Instant startExamTime = test.getStartDate().toInstant();
+			Instant endExamTime = startExamTime.plusSeconds(test.getDuration() * 60);
+
+			if ((startTime.isBefore(startExamTime) && endTime.isBefore(startExamTime))
+					|| (startTime.isAfter(endExamTime) && endTime.isAfter(endExamTime))) {
+				f = true;
+			}
+
+		}
+		if (f) {
+			Exam resp = cs.saveExam(exam);
+			return ResponseEntity.ok(resp);
+		}
+		return ResponseEntity.ok(new Exam());
 	}
 
 	@GetMapping("all")

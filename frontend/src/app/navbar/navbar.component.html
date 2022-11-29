@@ -25,11 +25,22 @@
       Teacher Login
     </button>
     <div class="dropdown" *ngIf="auth.currentuser">
-      <a class="btn btn-outline-secondary mr-2" routerLink="/dashboard"
-        >My Dashboard</a
-      >
-      
-        <a class="btn btn-outline-secondary" (click)="logout()" routerLink="/">Logout</a>
+      <div class="dropdown" *ngIf="auth.currentstudent">
+        <a class="btn btn-outline-secondary mr-2" routerLink="/dashboard"
+          >My Dashboard</a
+        >
+        <a class="btn btn-outline-secondary" (click)="logout()" routerLink="/"
+          >Logout</a
+        >
+      </div>
+      <div class="dropdown" *ngIf="auth.currentteach">
+        <a class="btn btn-outline-secondary mr-2" routerLink="/tdashboard"
+          >My Dashboard</a
+        >
+        <a class="btn btn-outline-secondary" (click)="logout()" routerLink="/"
+          >Logout</a
+        >
+      </div>
     </div>
   </div>
 </nav>

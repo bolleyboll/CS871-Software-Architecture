@@ -25,10 +25,11 @@ export class LoginComponent implements OnInit {
     this.auth.studentSignIn(this.login).subscribe((res: any) => {
       if (res.studentId === null) {
         this.errorFlag = true;
-        console.log("Error")
+        console.log("Error");
       } else {
         this.auth.currentuser = res;
-        console.log(this.auth.currentuser)
+        this.auth.currentstudent = res;
+        console.log(this.auth.currentuser);
         this.auth.isLoggedIn = true;
         this.router.navigateByUrl("/dashboard");
       }

@@ -27,6 +27,7 @@ export class TeacherLoginComponent implements OnInit {
         console.log("Error");
       } else {
         this.auth.currentuser = res;
+        this.auth.currentteach = res;
         console.log(this.auth.currentuser);
         this.auth.isLoggedIn = true;
         this.router.navigateByUrl("/tdashboard");
