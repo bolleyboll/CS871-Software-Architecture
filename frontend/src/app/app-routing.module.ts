@@ -3,10 +3,11 @@ import { RouterModule, Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
 import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { NewGroupComponent } from "./new-group/new-group.component";
 import { AboutComponent } from "./about/about.component";
 import { TeacherLoginComponent } from "./teacher-login/teacher-login.component";
 import { ExamComponent } from "./exam/exam.component";
+import { TeacherDashboardComponent } from "./teacher-dashboard/teacher-dashboard.component";
+import { NewTestComponent } from "./new-test/new-test.component";
 
 const routes: Routes = [
   {
@@ -29,12 +30,16 @@ const routes: Routes = [
     component: ExamComponent,
   },
   {
-    path: "newgroup",
-    component: NewGroupComponent,
+    path: "tdashboard",
+    component: TeacherDashboardComponent,
   },
   {
     path: "about",
     component: AboutComponent,
+  },
+  {
+    path: "newtest",
+    component: NewTestComponent,
   },
 ];
 

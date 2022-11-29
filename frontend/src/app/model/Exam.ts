@@ -5,13 +5,13 @@ export class Exam {
 	name: string;
 	startDate: Date;
 	duration: number;
-	courseCode: Course
+	course: Course
 	constructor() {
 	  this.examId = 0;
 	  this.name = "";
 	  this.startDate = new Date();
 	  this.duration = 0;
-	  this.courseCode = new Course();
+	  this.course = new Course();
 	}
   }
   

@@ -38,7 +38,7 @@ export class ExamComponent implements OnInit {
     this.exam.student = this.auth.currentuser.username;
     this.exam.examResponseId = Math.random() * (100 - 5) + 5;
 
-    this.auth.saveExam(this.exam).subscribe((res: any) => {
+    this.auth.saveExamResponse(this.exam).subscribe((res: any) => {
       if (res.examResponseId === null) {
         this.errorFlag = true;
         console.log("Error");

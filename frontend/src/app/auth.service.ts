@@ -21,6 +21,7 @@ export class AuthService {
   curGrp: Course;
   groups: Course[];
   exams: Exam[];
+  selCourse: string;
 
   constructor(public http: HttpClient) {}
 
@@ -30,11 +31,17 @@ export class AuthService {
   teacherSignIn(login) {
     return this.http.post("http://localhost:8080/teacher/login", login);
   }
-  saveExam(exam) {
-    return this.http.post("http://localhost:8080/course/tests/save", exam);
+  saveExamResponse(exam) {
+    return this.http.post(
+      "http://localhost:8080/course/tests/response/save",
+      exam
+    );
   }
-  groupRegister(grp) {
-    return this.http.post("http://localhost:8080/group/create", grp);
+  findAllCourses() {
+    return this.http.get("http://localhost:8080/course/all");
+  }
+  saveExam(exam, course) {
+    return this.http.post("http://localhost:8080/course/tests/save/" + course, exam);
   }
   newExpense(exp) {
     return this.http.post("http://localhost:8080/expense/add", exp);

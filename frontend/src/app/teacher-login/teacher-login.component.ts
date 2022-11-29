@@ -29,7 +29,7 @@ export class TeacherLoginComponent implements OnInit {
         this.auth.currentuser = res;
         console.log(this.auth.currentuser);
         this.auth.isLoggedIn = true;
-        this.router.navigateByUrl("/dashboard");
+        this.router.navigateByUrl("/tdashboard");
       }
     });
     this.login = new Login();

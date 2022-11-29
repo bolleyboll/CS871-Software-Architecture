@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "exam_responses")
 public class ExamResponse {
 	@Id
-	@Column(name = "examId", unique = true, nullable = false, updatable = false)
+	@Column(name = "examResponseId", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer examResponseId;
 

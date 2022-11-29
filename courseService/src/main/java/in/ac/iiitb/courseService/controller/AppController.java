@@ -17,6 +17,7 @@ import in.ac.iiitb.courseService.models.Course;
 import in.ac.iiitb.courseService.models.CourseRegistration;
 import in.ac.iiitb.courseService.models.Exam;
 import in.ac.iiitb.courseService.models.ExamResponse;
+import in.ac.iiitb.courseService.repositories.CourseRepository;
 import in.ac.iiitb.courseService.service.CourseService;
 
 @RestController
@@ -28,6 +29,9 @@ public class AppController {
 
 	@Autowired
 	StudentClient sc;
+
+	@Autowired
+	CourseRepository cr;
 
 	@GetMapping("tests/{student}")
 	public ResponseEntity<ArrayList<Exam>> findStudentsOfCourse(@PathVariable String student) {
@@ -51,9 +55,23 @@ public class AppController {
 		return ResponseEntity.ok(exams);
 	}
 
-	@PostMapping("tests/save")
+	@PostMapping("tests/response/save")
 	public ResponseEntity<ExamResponse> saveExamResponse(@RequestBody ExamResponse examResp) {
-		ExamResponse resp = cs.saveTest(examResp);
+		ExamResponse resp = cs.saveTestResponse(examResp);
+		return ResponseEntity.ok(resp);
+	}
+
+	@PostMapping("tests/save/{cid}")
+	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, @PathVariable String cid) {
+		Course c = cr.findByCourseCode(cid);
+		exam.setCourseCode(c);
+		Exam resp = cs.saveExam(exam);
+		return ResponseEntity.ok(resp);
+	}
+
+	@GetMapping("all")
+	public ResponseEntity<List<Course>> allCourses() {
+		List<Course> resp = cs.allCourses();
 		return ResponseEntity.ok(resp);
 	}
 }

@@ -11,5 +11,7 @@ import in.ac.iiitb.courseService.models.ExamResponse;
 public interface CourseService {
 	public List<CourseRegistration> getTests(String student);
 	ArrayList<Exam> findByCourseCode(Course c);
-	ExamResponse saveTest(ExamResponse examResp);
+	ExamResponse saveTestResponse(ExamResponse examResp);
+	Exam saveExam(Exam exam);
+	List<Course> allCourses();
 }

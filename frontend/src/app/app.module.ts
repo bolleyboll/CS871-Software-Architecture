@@ -10,10 +10,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NewGroupComponent } from './new-group/new-group.component';
 import { AboutComponent } from './about/about.component';
 import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
 import { ExamComponent } from './exam/exam.component';
+import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
+import { NewTestComponent } from './new-test/new-test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,10 +22,11 @@ import { ExamComponent } from './exam/exam.component';
     IndexComponent,
     LoginComponent,
     DashboardComponent,
-    NewGroupComponent,
     AboutComponent,
     TeacherLoginComponent,
     ExamComponent,
+    TeacherDashboardComponent,
+    NewTestComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import in.ac.iiitb.courseService.models.CourseRegistration;
 import in.ac.iiitb.courseService.models.Exam;
 import in.ac.iiitb.courseService.models.ExamResponse;
 import in.ac.iiitb.courseService.repositories.CourseRegistrationRepository;
+import in.ac.iiitb.courseService.repositories.CourseRepository;
 import in.ac.iiitb.courseService.repositories.ExamRepository;
 import in.ac.iiitb.courseService.repositories.ExamResponseRepository;
 import in.ac.iiitb.courseService.service.CourseService;
@@ -27,6 +28,10 @@ public class CourseServiceImpl implements CourseService{
 	@Autowired
 	ExamResponseRepository exmrespr;
 
+	@Autowired
+	CourseRepository cr;
+
+
 	@Override
 	public List<CourseRegistration> getTests(String student) {
 		return crr.findByStudent(student);
@@ -38,8 +43,18 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public ExamResponse saveTest(ExamResponse examResp) {
+	public ExamResponse saveTestResponse(ExamResponse examResp) {
 		return exmrespr.save(examResp);
+	}
+
+	@Override
+	public List<Course> allCourses() {
+		return cr.findAll();
+	}
+
+	@Override
+	public Exam saveExam(Exam exam) {
+		return exmr.save(exam);
 	}
 	
 }

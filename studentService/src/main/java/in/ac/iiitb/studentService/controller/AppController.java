@@ -50,9 +50,4 @@ public class AppController {
 		}
 		return ResponseEntity.ok("Invalid Credentials");
 	}
-
-	@PostMapping("abc")
-	public ResponseEntity<String> random() {
-		return ResponseEntity.ok("Invalid Credentials");
-	}
 }
