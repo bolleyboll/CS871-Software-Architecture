@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Student } from "./model/Student";
 import { Course } from "./model/Course";
+import { Exam } from "./model/Exam";
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -19,6 +20,7 @@ export class AuthService {
   currentgroup: string;
   curGrp: Course;
   groups: Course[];
+  exams: Exam[];
 
   constructor(public http: HttpClient) {}
 
@@ -43,8 +45,8 @@ export class AuthService {
   getAllUsers() {
     return this.http.get("http://localhost:8080/users");
   }
-  getGroups(username) {
-    return this.http.get("http://localhost:8080/user/group/" + username);
+  getTests(username) {
+    return this.http.get("http://localhost:8080/course/tests/" + username);
   }
   getGroup(id) {
     return this.http.get("http://localhost:8080/group/" + id);

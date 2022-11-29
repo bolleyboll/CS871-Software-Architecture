@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../auth.service";
-import { Course } from "../model/Course";
+import { Exam } from "../model/Exam";
 
 @Component({
   selector: "app-dashboard",
@@ -8,29 +8,24 @@ import { Course } from "../model/Course";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
-  groupsList: string[];
+  examsList: Exam[];
 
   constructor(public auth: AuthService) {
-    this.auth.groups = [];
-    this.groupsList = [];
+    this.auth.exams = [];
+    this.examsList = [];
   }
 
   ngOnInit(): void {
     if (this.auth.currentuser.name === null) {
-      this.auth.groups = [];
+      this.auth.exams = [];
     } else {
+      console.log("in here")
+      console.log(this.auth.currentuser.username)
       this.auth
-        .getGroups(this.auth.currentuser.username)
+        .getTests(this.auth.currentuser.username)
         .subscribe((res: any) => {
-          this.groupsList = res;
-          console.log(this.groupsList);
-
-          this.groupsList.forEach((group) => {
-            this.auth.getGroup(group).subscribe((res: any) => {
-              this.auth.groups.push(res);
-            });
-          });
-          console.log(this.auth.groups);
+          this.auth.exams = res;
+          console.log(this.auth.exams);
         });
     }
   }

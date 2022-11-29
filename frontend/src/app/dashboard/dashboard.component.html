@@ -6,27 +6,32 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Group Name</th>
-        <th scope="col">Members</th>
-        <th scope="col">Group Details</th>
+        <th scope="col">Exam Name</th>
+        <th scope="col">Subject Code</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Start Test</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let group of auth.groups; let i = index">
+      <tr *ngFor="let exam of auth.exams; let i = index">
         <th scope="row">
           {{ i + 1 }}
         </th>
-        <td>{{ group.courseName }}</td>
-        <td>{{ group.courseName }}</td>
+        <td>{{ exam.name }}</td>
+        <td>{{ exam.courseCode.courseName}}</td>
+        <td>{{ exam.startDate}}</td>
+        <td>{{ exam.duration}}</td>
+
         <td>
           <div class="text-center">
             <a routerLink="/group"
               ><button
                 type="button"
                 class="btn btn-outline-secondary"
-                (click)="groupDet(group.courseName)"
+                (click)="groupDet(exam.examId)"
               >
-                See Group Details
+                Start Exam
               </button></a
             >
           </div>
