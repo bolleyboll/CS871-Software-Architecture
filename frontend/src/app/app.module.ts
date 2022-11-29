@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupComponent } from './group/group.component';
 import { NewGroupComponent } from './new-group/new-group.component';
 import { AboutComponent } from './about/about.component';
+import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { AboutComponent } from './about/about.component';
     GroupComponent,
     NewGroupComponent,
     AboutComponent,
+    TeacherLoginComponent,
   ],
   imports: [
     BrowserModule,

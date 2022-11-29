@@ -1,5 +1,8 @@
 package in.ac.iiitb.teacherService.controller;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,18 +23,19 @@ public class AppController {
 	TeacherService ts;
 
 	@PostMapping("login")
-	public ResponseEntity<String> studentLogin(@RequestBody TeacherDTO user) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Teacher> studentLogin(@RequestBody TeacherDTO user) {
 
-		Teacher s = ts.findByUsername(user.getUsername());
+		Teacher t = ts.findByUsername(user.getUsername());
 
-		if (s.getPassword().equals(user.getPassword())) {
-			Boolean res = ts.setSessionKey("student", s);
+		if (t.getPassword().equals(user.getPassword())) {
+			Boolean res = ts.setSessionKey("teacher", t);
 			if (res) {
-				return ResponseEntity.ok("Login Success");
+				return ResponseEntity.ok(t);
 			} else {
-				return ResponseEntity.ok("Login Failed");
+				return ResponseEntity.ok(new Teacher());
 			}
 		}
-		return ResponseEntity.ok("Invalid Credentials");
+		return ResponseEntity.ok(new Teacher());
 	}
 }

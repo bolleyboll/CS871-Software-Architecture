@@ -28,6 +28,9 @@ export class AuthService {
   studentSignIn(login) {
     return this.http.post("http://localhost:8080/student/login", login);
   }
+  teacherSignIn(login) {
+    return this.http.post("http://localhost:8080/teacher/login", login);
+  }
   patRegister(user) {
     return this.http.post("http://localhost:8080/register", user);
   }

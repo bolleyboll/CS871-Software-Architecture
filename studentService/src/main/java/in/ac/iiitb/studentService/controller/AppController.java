@@ -3,11 +3,8 @@ package in.ac.iiitb.studentService.controller;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,10 +33,10 @@ public class AppController {
 			if (res) {
 				return ResponseEntity.ok(s);
 			} else {
-				return new ResponseEntity<Student>(new Student(), HttpStatus.UNAUTHORIZED);
+				return ResponseEntity.ok(new Student());
 			}
 		}
-		return new ResponseEntity<Student>(new Student(), HttpStatus.UNAUTHORIZED);
+		return ResponseEntity.ok(new Student());
 	}
 
 	@GetMapping("test")

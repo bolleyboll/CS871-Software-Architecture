@@ -16,15 +16,15 @@
         <th scope="row">
           {{ i + 1 }}
         </th>
-        <td>{{ group.name }}</td>
-        <td>{{ group.members }}</td>
+        <td>{{ group.courseName }}</td>
+        <td>{{ group.courseName }}</td>
         <td>
           <div class="text-center">
             <a routerLink="/group"
               ><button
                 type="button"
                 class="btn btn-outline-secondary"
-                (click)="groupDet(group.name)"
+                (click)="groupDet(group.courseName)"
               >
                 See Group Details
               </button></a

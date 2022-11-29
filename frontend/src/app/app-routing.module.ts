@@ -1,14 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
-import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { GroupComponent } from "./group/group.component";
 import { NewGroupComponent } from "./new-group/new-group.component";
 import { AboutComponent } from "./about/about.component";
-import { NewExpenseComponent } from "./new-expense/new-expense.component";
-import { NewMemberComponent } from "./new-member/new-member.component";
+import { TeacherLoginComponent } from "./teacher-login/teacher-login.component";
 
 const routes: Routes = [
   {
@@ -16,12 +14,11 @@ const routes: Routes = [
     component: IndexComponent,
   },
   {
-    path: "register",
-    component: RegisterComponent,
-  },
-  {
     path: "login",
     component: LoginComponent,
+  },{
+    path: "tlogin",
+    component: TeacherLoginComponent,
   },
   {
     path: "dashboard",
@@ -38,14 +35,6 @@ const routes: Routes = [
   {
     path: "about",
     component: AboutComponent,
-  },
-  {
-    path: "newexpense",
-    component: NewExpenseComponent,
-  },
-  {
-    path: "newmember",
-    component: NewMemberComponent,
   },
 ];
 

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand ml-2" routerLink="/">Expense Sharing</a>
+  <a class="navbar-brand ml-2" routerLink="/">OAES - Microservice</a>
 
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav">
@@ -15,14 +15,14 @@
       routerLink="login"
       *ngIf="!this.auth.isLoggedIn"
     >
-      Login
+      Student Login
     </button>
     <button
       class="btn btn-secondary"
-      routerLink="register"
+      routerLink="tlogin"
       *ngIf="!this.auth.isLoggedIn"
     >
-      Register
+      Teacher Login
     </button>
     <div class="dropdown" *ngIf="auth.currentuser">
       <a class="btn btn-outline-secondary mr-2" routerLink="/dashboard"
