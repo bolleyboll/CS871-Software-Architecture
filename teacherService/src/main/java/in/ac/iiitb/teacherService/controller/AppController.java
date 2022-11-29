@@ -13,7 +13,6 @@ import in.ac.iiitb.teacherService.models.Teacher;
 import in.ac.iiitb.teacherService.service.TeacherService;
 
 @RestController
-@CrossOrigin
 @RequestMapping("teacher")
 public class AppController {
 

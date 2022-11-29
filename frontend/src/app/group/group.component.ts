@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../auth.service";
 import { Expense } from "../model/Expense";
-import { Group } from "../model/Group";
+import { Course } from "../model/Course";
 
 @Component({
   selector: "app-group",
@@ -9,7 +9,7 @@ import { Group } from "../model/Group";
   styleUrls: ["./group.component.css"],
 })
 export class GroupComponent implements OnInit {
-  grp: Group;
+  grp: Course;
   members: string[];
   mem: string;
   expenses: Expense[];
@@ -22,16 +22,16 @@ export class GroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.groups.forEach((element) => {
-      if (element.name === this.auth.currentgroup) {
+      if (element.courseName === this.auth.currentgroup) {
         this.grp = element;
         this.auth.curGrp = element;
       }
     });
     console.log(this.grp);
-    this.mem = this.grp.members;
+    this.mem = this.grp.courseCode;
     this.members = this.mem.split(", ");
 
-    this.auth.getExpenses(this.auth.curGrp.groupId).subscribe((res: any) => {
+    this.auth.getExpenses(this.auth.curGrp.courseId).subscribe((res: any) => {
       this.expenses = res;
       console.log(this.expenses);
 

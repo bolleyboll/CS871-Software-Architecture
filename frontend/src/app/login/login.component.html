@@ -1,19 +1,19 @@
 <div class="container">
-  <h2 class="text-center my-5">Sign In</h2>
+  <h2 class="text-center my-5">Student Sign In</h2>
   <form (ngSubmit)="loginSubmit(loginForm)" #loginForm="ngForm">
     <div class="form-group">
-      <label>Email address</label>
+      <label>Username</label>
       <input
         type="text"
         class="form-control"
-        name="email"
+        name="username"
         #email="ngModel"
-        [(ngModel)]="login.email"
-        placeholder="Enter Email"
+        [(ngModel)]="login.username"
+        placeholder="Enter Username"
         required
       />
       <small class="form-text text-warning" *ngIf="email.invalid && email.dirty"
-        >Email can't be empty</small
+        >Username can't be empty</small
       >
     </div>
     <div class="form-group">

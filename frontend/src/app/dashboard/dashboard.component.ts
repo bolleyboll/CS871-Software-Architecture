@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../auth.service";
-import { Group } from "../model/Group";
+import { Course } from "../model/Course";
 
 @Component({
   selector: "app-dashboard",

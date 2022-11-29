@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
-import { Group } from "../model/Group";
+import { Course } from "../model/Course";
 
 @Component({
   selector: "app-new-group",
@@ -9,14 +9,14 @@ import { Group } from "../model/Group";
   styleUrls: ["./new-group.component.css"],
 })
 export class NewGroupComponent implements OnInit {
-  group: Group;
+  group: Course;
   errorFlag: boolean;
   successFlag: boolean;
   error: string;
   errorStyle: string;
 
   constructor(public auth: AuthService, public router: Router) {
-    this.group = new Group();
+    this.group = new Course();
     this.error = "";
     this.errorStyle = "form-text text-danger";
   }
@@ -26,8 +26,8 @@ export class NewGroupComponent implements OnInit {
   newGroup(newGrpForm) {
     this.errorFlag = false;
     this.successFlag = false;
-    this.group.groupId = Math.floor(Math.random() * (999 - 100 + 1) + 100);
-    this.group.members = this.auth.currentuser.username;
+    this.group.courseId = Math.floor(Math.random() * (999 - 100 + 1) + 100);
+    this.group.courseCode = this.auth.currentuser.username;
     this.auth.groupRegister(this.group).subscribe((res: any) => {
       if (res === null) {
         this.errorFlag = true;
@@ -35,7 +35,7 @@ export class NewGroupComponent implements OnInit {
         this.successFlag = true;
       }
     });
-    this.group = new Group();
+    this.group = new Course();
     newGrpForm.form.markAsPristine();
   }
 }

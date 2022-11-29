@@ -1,6 +1,11 @@
 package in.ac.iiitb.studentService.controller;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +19,6 @@ import in.ac.iiitb.studentService.models.Student;
 import in.ac.iiitb.studentService.service.StudentService;
 
 @RestController
-@CrossOrigin
 @RequestMapping("student")
 public class AppController {
 
@@ -22,19 +26,20 @@ public class AppController {
 	StudentService ss;
 
 	@PostMapping("login")
-	public ResponseEntity<String> studentLogin(@RequestBody StudentDTO user) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Student> studentLogin(@RequestBody StudentDTO user) {
 
 		Student s = ss.findByUsername(user.getUsername());
 
 		if (s.getPassword().equals(user.getPassword())) {
 			Boolean res = ss.setSessionKey("student", s);
 			if (res) {
-				return ResponseEntity.ok("Login Success");
+				return ResponseEntity.ok(s);
 			} else {
-				return ResponseEntity.ok("Login Failed");
+				return new ResponseEntity<Student>(new Student(), HttpStatus.UNAUTHORIZED);
 			}
 		}
-		return ResponseEntity.ok("Invalid Credentials");
+		return new ResponseEntity<Student>(new Student(), HttpStatus.UNAUTHORIZED);
 	}
 
 	@GetMapping("test")
@@ -46,6 +51,11 @@ public class AppController {
 		if (s.getPassword().equals(user.getPassword())) {
 			return ResponseEntity.ok("Login Success");
 		}
+		return ResponseEntity.ok("Invalid Credentials");
+	}
+
+	@PostMapping("abc")
+	public ResponseEntity<String> random() {
 		return ResponseEntity.ok("Invalid Credentials");
 	}
 }

@@ -1,32 +1,32 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "./model/User";
-import { Group } from "./model/Group";
+import { Student } from "./model/Student";
+import { Course } from "./model/Course";
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
-//     Authorization: "someToken",
+//     "Content-Type": "application/json; charset=utf-8",
+//     "Access-Control-Allow-Origin": "true",
 //   }),
-//   withCredentials: true,
 // };
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  currentuser: User = null;
+  currentuser: Student = null;
   isLoggedIn: Boolean = false;
   currentgroup: string;
-  curGrp: Group;
-  groups: Group[];
+  curGrp: Course;
+  groups: Course[];
 
   constructor(public http: HttpClient) {}
 
   getExpenses(id) {
     return this.http.get("http://localhost:8080/group/expenses/" + id);
   }
-  signIn(login) {
-    return this.http.post("http://localhost:8080/login", login);
+  studentSignIn(login) {
+    return this.http.post("http://localhost:8080/student/login", login);
   }
   patRegister(user) {
     return this.http.post("http://localhost:8080/register", user);
