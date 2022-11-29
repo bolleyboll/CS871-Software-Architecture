@@ -1,0 +1,55 @@
+<div class="alert alert-dismissible alert-primary">
+  <strong>Welcome {{ this.auth.currentuser.name }}</strong>
+</div>
+<div class="container">
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Exam Name</th>
+        <th scope="col">Subject Code</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Start Test</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exam of auth.exams; let i = index">
+        <th scope="row">
+          {{ i + 1 }}
+        </th>
+        <td>{{ exam.name }}</td>
+        <td>{{ exam.course.courseName }}</td>
+        <td>{{ exam.startDate }}</td>
+        <td>{{ exam.duration }}</td>
+
+        <td>
+          <div class="text-center">
+            <a routerLink="/exam"
+              ><button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="groupDet(exam.examId)"
+              >
+                Start Exam
+              </button></a
+            >
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center my-2">
+    <a routerLink="/newgroup"
+      ><button type="button" class="btn btn-primary m-1">
+        Create New Group
+      </button></a
+    >
+    <a routerLink="/newexpense">
+      <button type="button" class="btn btn-outline-success m-1">
+        Add Expense
+      </button></a
+    >
+  </div>
+</div>

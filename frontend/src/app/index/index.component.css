@@ -1,0 +1,14 @@
+.youtube-video {
+	width: 100%;
+	height: 680px;
+	display: block;
+	margin: 0 auto;
+	border-radius: 32px;
+  }
+  .textbig {
+	font-size: x-large;
+  }
+  .text-large {
+	font-size: large;
+  }
+  
