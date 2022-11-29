@@ -17,24 +17,21 @@ import { Exam } from "./model/Exam";
 export class AuthService {
   currentuser: Student = null;
   isLoggedIn: Boolean = false;
-  currentgroup: string;
+  currentExam: number;
   curGrp: Course;
   groups: Course[];
   exams: Exam[];
 
   constructor(public http: HttpClient) {}
 
-  getExpenses(id) {
-    return this.http.get("http://localhost:8080/group/expenses/" + id);
-  }
   studentSignIn(login) {
     return this.http.post("http://localhost:8080/student/login", login);
   }
   teacherSignIn(login) {
     return this.http.post("http://localhost:8080/teacher/login", login);
   }
-  patRegister(user) {
-    return this.http.post("http://localhost:8080/register", user);
+  saveExam(exam) {
+    return this.http.post("http://localhost:8080/course/tests/save", exam);
   }
   groupRegister(grp) {
     return this.http.post("http://localhost:8080/group/create", grp);

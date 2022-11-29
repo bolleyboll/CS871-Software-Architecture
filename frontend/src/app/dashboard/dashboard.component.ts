@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  groupDet(i: string) {
-    this.auth.currentgroup = i;
+  groupDet(i: number) {
+    this.auth.currentExam = i;
   }
 }

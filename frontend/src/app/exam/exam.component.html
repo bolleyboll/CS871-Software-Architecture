@@ -1,0 +1,33 @@
+<div class="alert alert-dismissible alert-primary">
+  <strong>Welcome {{ this.auth.currentuser.name }}</strong>
+</div>
+<div class="container">
+  <h3>{{ this.exmName }}</h3>
+  <br />
+  <br />
+  <h5>Placeholder Question for the Exam</h5>
+  <form (ngSubmit)="examSave(examForm)" #examForm="ngForm">
+    <div class="form-group">
+      <label>Question Response</label>
+      <input
+        type="textarea"
+        class="form-control"
+        name="response"
+        #email="ngModel"
+        [(ngModel)]="exam.response"
+        placeholder="Enter Response"
+        required
+      />
+      <small class="form-text text-warning" *ngIf="email.invalid && !email.dirty"
+        >Res can't be empty</small
+      >
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="examForm.pristine || examForm.invalid"
+    >
+      Submit Response
+    </button>
+  </form>
+</div>

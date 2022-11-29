@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import in.ac.iiitb.courseService.models.Course;
 import in.ac.iiitb.courseService.models.CourseRegistration;
 import in.ac.iiitb.courseService.models.Exam;
+import in.ac.iiitb.courseService.models.ExamResponse;
 import in.ac.iiitb.courseService.repositories.CourseRegistrationRepository;
 import in.ac.iiitb.courseService.repositories.ExamRepository;
+import in.ac.iiitb.courseService.repositories.ExamResponseRepository;
 import in.ac.iiitb.courseService.service.CourseService;
 
 @Service
@@ -22,6 +24,9 @@ public class CourseServiceImpl implements CourseService{
 	@Autowired
 	ExamRepository exmr;
 
+	@Autowired
+	ExamResponseRepository exmrespr;
+
 	@Override
 	public List<CourseRegistration> getTests(String student) {
 		return crr.findByStudent(student);
@@ -30,6 +35,11 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public ArrayList<Exam> findByCourseCode(Course c) {
 		return exmr.findByCourseCode(c);
+	}
+
+	@Override
+	public ExamResponse saveTest(ExamResponse examResp) {
+		return exmrespr.save(examResp);
 	}
 	
 }

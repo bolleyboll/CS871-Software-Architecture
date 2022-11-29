@@ -3,10 +3,10 @@ import { RouterModule, Routes } from "@angular/router";
 import { IndexComponent } from "./index/index.component";
 import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { GroupComponent } from "./group/group.component";
 import { NewGroupComponent } from "./new-group/new-group.component";
 import { AboutComponent } from "./about/about.component";
 import { TeacherLoginComponent } from "./teacher-login/teacher-login.component";
+import { ExamComponent } from "./exam/exam.component";
 
 const routes: Routes = [
   {
@@ -25,8 +25,8 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: "group",
-    component: GroupComponent,
+    path: "exam",
+    component: ExamComponent,
   },
   {
     path: "newgroup",
