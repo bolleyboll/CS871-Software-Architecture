@@ -23,6 +23,7 @@ public class Start {
 			t.setEmail("rc@iiitb.ac.in");
 			t.setUsername("rc");
 			t.setPassword("password");
+			tr.save(t);
 
 			Teacher t1 = new Teacher();
 			t1.setTeacherId(2);
